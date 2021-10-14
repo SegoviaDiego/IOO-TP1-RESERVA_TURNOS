@@ -1,10 +1,14 @@
 package com.company.Entities.Doctor.Model;
 
+import java.util.Date;
+
 public class Doctor {
     private int id;
     private String firstName; // Nombre
     private String lastName; // Apellido
     private String credential; // Matricula
+    private Date startsWorkingTime; // Comienzo de turno.
+    private Date endsWorkingTime; // Fin de turno.
 
     public Doctor(int id, String firstName, String lastName, String credential){
 
