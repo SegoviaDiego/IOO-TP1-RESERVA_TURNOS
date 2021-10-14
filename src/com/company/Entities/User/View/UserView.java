@@ -1,4 +1,4 @@
-package com.company.User.View;
+package com.company.Entities.User.View;
 
 import javax.swing.*;
 
