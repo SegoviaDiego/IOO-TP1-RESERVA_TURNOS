@@ -1,7 +1,7 @@
-package Controller;
+package com.company.User.Controller;
 
-import Model.User;
-import View.UserView;
+import com.company.User.Model.User;
+import com.company.User.View.UserView;
 
 public class UserController {
     private User model;

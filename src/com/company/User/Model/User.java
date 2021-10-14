@@ -1,4 +1,4 @@
-package Model;
+package com.company.User.Model;
 
 public class User {
     private int id;
