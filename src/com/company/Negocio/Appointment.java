@@ -1,11 +1,11 @@
-package com.company.Entities.Appointment.Model;
+package com.company.Negocio;
 
 import java.util.Date;
 
 public class Appointment {
     private int id;
-    private int doctorId; // Nombre
-    private int userId; // Apellido
+    private int doctorId;
+    private int userId;
     private Date startsAt; // Datetime de comienzo del turno.
     private Date endsAt; // Datetime de finalización del turno.
 
