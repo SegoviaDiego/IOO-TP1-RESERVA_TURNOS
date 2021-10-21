@@ -1,4 +1,4 @@
-package com.company.Entities.User.View;
+package com.company.UI;
 
 import javax.swing.*;
 import java.awt.*;

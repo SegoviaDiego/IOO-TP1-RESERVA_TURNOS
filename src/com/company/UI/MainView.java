@@ -1,7 +1,6 @@
-package com.company;
+package com.company.UI;
 
-import com.company.Entities.User.View.LoginView;
-import com.company.Entities.User.View.UserView;
+import com.company.UI.LoginView;
 
 import javax.swing.*;
 import java.awt.*;

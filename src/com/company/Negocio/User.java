@@ -1,4 +1,4 @@
-package com.company.Entities.User.Model;
+package com.company.Negocio;
 
 public class User {
     private int id;
@@ -9,6 +9,7 @@ public class User {
     private String createdAt;
     private String username;
     private String password;
+    private String role;
 
     public User(String firstName, String lastName, String address, String dni, String createdAt, String username, String password) {
         this.firstName = firstName;
@@ -80,5 +81,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
