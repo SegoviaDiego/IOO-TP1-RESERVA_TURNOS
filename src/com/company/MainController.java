@@ -1,10 +1,13 @@
 package com.company;
 
-import com.company.Entities.User.View.UserView;
-import com.company.UI.MainView;
+import com.company.UI.ViewManager;
 
 public class MainController {
     public static void main(String[] args) {
-        MainView view = new MainView();
+        ViewManager viewManager = new ViewManager();
+        viewManager.init();
+        viewManager.show();
+
+        viewManager.goToLoginView();
     }
 }
