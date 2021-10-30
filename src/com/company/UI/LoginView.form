@@ -60,7 +60,7 @@
                   <text value="Usuario"/>
                 </properties>
               </component>
-              <component id="141f4" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="141f4" class="javax.swing.JTextField" binding="usernameField" default-binding="true">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -76,7 +76,7 @@
                   <text value="Contraseña"/>
                 </properties>
               </component>
-              <component id="a4d06" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
+              <component id="a4d06" class="javax.swing.JPasswordField" binding="passwordField" default-binding="true">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -114,7 +114,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="a1395" class="javax.swing.JButton" binding="ingresarButton" default-binding="true">
+              <component id="a1395" class="javax.swing.JButton" binding="signInButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>

@@ -1,36 +1,47 @@
 package com.company.Negocio;
 
-public class User {
-    private int id;
+import java.io.Serializable;
+import java.util.Date;
+
+public class User implements Serializable {
+    private long id;
     private String firstName;
     private String lastName;
     private String address;
     private String dni;
-    private String createdAt;
+    private Date createdAt;
     private String username;
     private String password;
     private String role;
 
-    public User(String firstName, String lastName, String address, String dni, String createdAt, String username, String password) {
+
+    public User(long id, String firstName, String lastName, String address, String dni, String username, String password) {
+        this(id, firstName, lastName, address, dni, username, password, new Date());
+    }
+
+    public User(long id, String firstName, String lastName, String address, String dni, String username, String password, Date createdAt) {
+        this.id = 1;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.dni = dni;
-        this.createdAt = createdAt;
         this.username = username;
         this.password = password;
+        this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+
+    public void setId(long id) {
         this.id = id;
     }
 
     public String getFirstName() {
         return this.firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -59,11 +70,11 @@ public class User {
         this.dni = dni;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
