@@ -33,6 +33,14 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
+    public void goToMainMenuView() {
+        this.mainPanel.getContentPane().removeAll();
+        // @TODO: Replace with Main Menu
+        this.mainPanel.getContentPane().add(this.loginView.getView());
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
     // Internal methods
 
     public void show() {
