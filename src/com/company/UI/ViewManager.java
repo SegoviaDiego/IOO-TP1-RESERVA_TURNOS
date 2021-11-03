@@ -5,7 +5,10 @@ import java.awt.*;
 
 public class ViewManager {
     private JFrame mainPanel;
+
     private LoginView loginView;
+
+    private MainMenu mainMenu;
 
     public void init() {
         this.mainPanel = new JFrame();
@@ -22,6 +25,9 @@ public class ViewManager {
 
         this.loginView = new LoginView(this);
         this.loginView.init();
+
+        this.mainMenu = new MainMenu(this);
+        this.mainMenu.init();
     }
 
     // Navigation methods
@@ -36,7 +42,7 @@ public class ViewManager {
     public void goToMainMenuView() {
         this.mainPanel.getContentPane().removeAll();
         // @TODO: Replace with Main Menu
-        this.mainPanel.getContentPane().add(this.loginView.getView());
+        this.mainPanel.getContentPane().add(this.mainMenu.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }

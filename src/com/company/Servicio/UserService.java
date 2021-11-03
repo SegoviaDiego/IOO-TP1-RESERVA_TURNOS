@@ -17,6 +17,6 @@ public class UserService extends Service<User> {
 
         List<User> data = entityDAO.findAll();
 
-        return data.stream().filter(user -> (user.getUsername() == username && user.getPassword() == password)).findAny();
+        return data.stream().filter(user -> (user.getUsername().equals(username) && user.getPassword().equals(password))).findAny();
     }
 }
