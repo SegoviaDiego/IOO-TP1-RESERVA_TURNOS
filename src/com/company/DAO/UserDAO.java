@@ -28,11 +28,13 @@ public class UserDAO implements FileDAO<User> {
     public void create(User user) {
         List<User> data = this.findAll();
 
+        // Si no existe un usuario con el mismo Username.
+        if (data.stream().noneMatch(u -> u.getUsername() == user.getUsername())) {
+            user.setId(this.generateId(data));
+            data.add(user);
 
-        user.setId(this.generateId(data));
-        data.add(user);
-
-        this.save(data);
+            this.save(data);
+        }
     }
 
     @Override
