@@ -5,6 +5,8 @@ import com.company.Negocio.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserService extends Service<User> {
 
@@ -18,5 +20,14 @@ public class UserService extends Service<User> {
         List<User> data = entityDAO.findAll();
 
         return data.stream().filter(user -> (user.getUsername().equals(username) && user.getPassword().equals(password))).findAny();
+    }
+
+    public List<User> getAllDoctors() {
+        List<User> data = entityDAO.findAll();
+
+        // TODO: Make "doctor" an enum rather than a hardcoded value.
+        Stream<User> doctors = data.stream().filter(User::isDoctor);
+
+        return doctors.collect(Collectors.toList());
     }
 }
