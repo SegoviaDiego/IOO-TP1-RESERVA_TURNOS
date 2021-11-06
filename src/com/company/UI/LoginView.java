@@ -44,7 +44,7 @@ public class LoginView extends BasicView {
 
         if (user.isPresent()) {
             System.out.println("El usuario ha ingresado en el sistema.");
-            viewManager.goToMainMenuView();
+            viewManager.goToMainMenuView(user.get());
         } else {
             // TODO: Handle invalid credentials exception.
             this.errorField.setText("Usuario o Contraseña incorrecto.");
@@ -159,5 +159,4 @@ public class LoginView extends BasicView {
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
     }
-
 }

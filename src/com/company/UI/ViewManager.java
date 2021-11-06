@@ -1,14 +1,14 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ViewManager {
     private JFrame mainPanel;
-
     private LoginView loginView;
-
-    private MainMenu mainMenu;
+    private MainMenuView mainMenuView;
 
     public void init() {
         this.mainPanel = new JFrame();
@@ -26,8 +26,8 @@ public class ViewManager {
         this.loginView = new LoginView(this);
         this.loginView.init();
 
-        this.mainMenu = new MainMenu(this);
-        this.mainMenu.init();
+        this.mainMenuView = new MainMenuView(this);
+        this.mainMenuView.init();
     }
 
     // Navigation methods
@@ -39,10 +39,11 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToMainMenuView() {
+    public void goToMainMenuView(User user) {
         this.mainPanel.getContentPane().removeAll();
         // @TODO: Replace with Main Menu
-        this.mainPanel.getContentPane().add(this.mainMenu.getView());
+        this.mainPanel.getContentPane().add(this.mainMenuView.getView(user));
+        //this.mainPanel.getContentPane().add(this.mainMenuView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
