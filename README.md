@@ -2,11 +2,11 @@
 TP 1 de Introducción a la orientación a objetos - Sistema para la reserva de turnos
 
 # DER
-![Project DER](https://i.imgur.com/FHoZ3p5.png)
+![Project DER](static/der.png)!
 
 # Setup
 
 * Clonar el proyecto
 * En Settings -> GUI Designer
   * Seleccionar "Generate GUI into: Java source code"
-  ![img.png](img.png)
+  ![Project Settings](static/project-settings.png)
