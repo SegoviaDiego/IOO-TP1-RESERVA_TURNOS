@@ -8,6 +8,7 @@ public class MainController {
         viewManager.init();
         viewManager.show();
 
-        viewManager.goToLoginView();
+//        viewManager.goToLoginView();
+        viewManager.goToSelectDoctorView();
     }
 }
