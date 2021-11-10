@@ -3,6 +3,11 @@ package com.company.Negocio;
 import java.io.Serializable;
 import java.util.Date;
 
+enum UserRole {
+    DOCTOR,
+    PATIENT
+}
+
 public class User implements Serializable {
     private long id;
     private String firstName;
@@ -12,14 +17,22 @@ public class User implements Serializable {
     private Date createdAt;
     private String username;
     private String password;
-    private String role;
+    private UserRole role;
 
+    // Related Entities
+
+    private Doctor doctor;
+    private Appointment appointments;
 
     public User(long id, String firstName, String lastName, String address, String dni, String username, String password) {
-        this(id, firstName, lastName, address, dni, username, password, new Date());
+        this(id, firstName, lastName, address, dni, username, password, UserRole.PATIENT);
     }
 
-    public User(long id, String firstName, String lastName, String address, String dni, String username, String password, Date createdAt) {
+    public User(long id, String firstName, String lastName, String address, String dni, String username, String password, UserRole role) {
+        this(id, firstName, lastName, address, dni, username, password, role, new Date());
+    }
+
+    public User(long id, String firstName, String lastName, String address, String dni, String username, String password, UserRole role, Date createdAt) {
         this.id = 1;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +41,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.createdAt = createdAt;
+        this.role = role;
     }
 
     public long getId() {
@@ -95,10 +109,42 @@ public class User implements Serializable {
     }
 
     public String getRole() {
-        return role;
+        return role.toString();
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public Appointment getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Appointment appointments) {
+        this.appointments = appointments;
+    }
+
+    public void makePatient() {
+        this.role = UserRole.PATIENT;
+    }
+
+    public void makeDoctor() {
+        this.role = UserRole.DOCTOR;
+    }
+
+    public boolean isPatient() {
+        return this.role.equals(UserRole.PATIENT);
+    }
+
+    public boolean isDoctor() {
+        return this.role.equals(UserRole.DOCTOR);
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

@@ -5,7 +5,7 @@ import javax.swing.*;
 public abstract class BasicView {
     public ViewManager viewManager;
 
-    BasicView(ViewManager viewManager){
+    protected BasicView(ViewManager viewManager){
         this.viewManager = viewManager;
     }
 

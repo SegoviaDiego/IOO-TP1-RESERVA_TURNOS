@@ -6,15 +6,18 @@ public class Appointment {
     private int id;
     private int doctorId;
     private int userId;
-    private Date startsAt; // Datetime de comienzo del turno.
-    private Date endsAt; // Datetime de finalización del turno.
+    private Date scheduledFor; // Datetime de comienzo del turno.
 
-    public Appointment(int id, int doctorId, int userId, Date startsAt, Date endsAt) {
+    // Related Entities
+
+    private User user;
+    private Shift shift;
+
+    public Appointment(int id, int doctorId, int userId, Date scheduledFor) {
         this.id = id;
         this.doctorId = doctorId;
         this.userId = userId;
-        this.startsAt = startsAt;
-        this.endsAt = endsAt;
+        this.scheduledFor = scheduledFor;
     }
 
     public int getId() {
@@ -41,19 +44,27 @@ public class Appointment {
         this.userId = userId;
     }
 
-    public Date getStartsAt() {
-        return startsAt;
+    public User getUser() {
+        return user;
     }
 
-    public void setStartsAt(Date startsAt) {
-        this.startsAt = startsAt;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Date getEndsAt() {
-        return endsAt;
+    public Shift getShift() {
+        return shift;
     }
 
-    public void setEndsAt(Date endsAt) {
-        this.endsAt = endsAt;
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public Date getScheduledFor() {
+        return scheduledFor;
+    }
+
+    public void setScheduledFor(Date scheduledFor) {
+        this.scheduledFor = scheduledFor;
     }
 }

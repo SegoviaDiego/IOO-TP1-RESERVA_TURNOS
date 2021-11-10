@@ -1,14 +1,18 @@
 package com.company.UI;
 
-import com.company.Negocio.User;
+import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ViewManager {
     private JFrame mainPanel;
+
     private LoginView loginView;
-    private MainMenuView mainMenuView;
+
+    private MainMenu mainMenu;
+
+    private SelectDoctor selectDoctorView;
 
     public void init() {
         this.mainPanel = new JFrame();
@@ -26,8 +30,11 @@ public class ViewManager {
         this.loginView = new LoginView(this);
         this.loginView.init();
 
-        this.mainMenuView = new MainMenuView(this);
-        this.mainMenuView.init();
+        this.mainMenu = new MainMenu(this);
+        this.mainMenu.init();
+
+        this.selectDoctorView = new SelectDoctor(this);
+        this.selectDoctorView.init();
     }
 
     // Navigation methods
@@ -39,11 +46,16 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToMainMenuView(User user) {
+    public void goToMainMenuView() {
         this.mainPanel.getContentPane().removeAll();
-        // @TODO: Replace with Main Menu
-        this.mainPanel.getContentPane().add(this.mainMenuView.getView(user));
-        //this.mainPanel.getContentPane().add(this.mainMenuView.getView());
+        this.mainPanel.getContentPane().add(this.mainMenu.getView());
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
+    public void goToSelectDoctorView() {
+        this.mainPanel.getContentPane().removeAll();
+        this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
