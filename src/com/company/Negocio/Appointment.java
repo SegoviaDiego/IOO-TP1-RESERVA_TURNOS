@@ -3,7 +3,7 @@ package com.company.Negocio;
 import java.util.Date;
 
 public class Appointment {
-    private int id;
+    private long id;
     private int doctorId;
     private int userId;
     private Date scheduledFor; // Datetime de comienzo del turno.
@@ -20,11 +20,11 @@ public class Appointment {
         this.scheduledFor = scheduledFor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
