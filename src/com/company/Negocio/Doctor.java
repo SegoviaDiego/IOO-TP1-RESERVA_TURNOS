@@ -1,7 +1,7 @@
 package com.company.Negocio;
 
 public class Doctor {
-    private int id;
+    private long id;
     private String credential; // Matricula
 
     // Related entities
@@ -15,11 +15,11 @@ public class Doctor {
         this.credential = credential;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
