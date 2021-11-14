@@ -1,5 +1,7 @@
 package com.company.DAO;
 
+import com.company.Negocio.Appointment;
+
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -22,6 +24,8 @@ public interface DAO<T> {
     List<T> findAll();
 
     T findById(long id);
+
+    List<Appointment> findByUserId(long id);
 
     void create(T t);
 

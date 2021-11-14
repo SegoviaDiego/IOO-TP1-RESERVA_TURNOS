@@ -1,5 +1,6 @@
 package com.company.DAO;
 
+import com.company.Negocio.Appointment;
 import com.company.Negocio.Shift;
 
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class ShiftDAO implements FileDAO<Shift> {
         List<Shift> data = this.findAll();
 
         return data.stream().filter(entity -> entity.getId() == id).findAny().orElse(null);
+    }
+
+    @Override
+    public List<Appointment> findByUserId(long id) {
+        return null;
     }
 
 

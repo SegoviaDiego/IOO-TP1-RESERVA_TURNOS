@@ -1,6 +1,8 @@
 package com.company.UI;
 
+import com.company.Negocio.Appointment;
 import com.company.Negocio.User;
+import com.company.Servicio.AppointmentService;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -9,6 +11,7 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Locale;
 
 public class MainMenuView extends BasicView {
@@ -47,15 +50,30 @@ public class MainMenuView extends BasicView {
 
     public void fillTable(User user) {
 
-        TableColumn columnaNombre = new TableColumn();
-        columnaNombre.setHeaderValue("nombre");
-        TableColumn columnaApellido = new TableColumn();
-        columnaNombre.setHeaderValue("Apellido");
-        TableColumn columnax = new TableColumn();
-        columnaNombre.setHeaderValue("x");
-        table1.addColumn(columnaNombre);
-        table1.addColumn(columnaApellido);
-        table1.addColumn(columnax);
+        AppointmentService service = new AppointmentService();
+        List<Appointment> appointments = service.findByUserId(user.getId());
+
+        TableColumn columnaNombreC = new TableColumn();
+        columnaNombreC.setHeaderValue("nombre");
+        TableColumn columnaApellidoC = new TableColumn();
+        columnaApellidoC.setHeaderValue("Apellido");
+        TableColumn columnaDia = new TableColumn();
+        columnaDia.setHeaderValue("Dia");
+        TableColumn columnaNombreD = new TableColumn();
+        columnaNombreD.setHeaderValue("Nombre Doctor");
+        TableColumn columnaApellidoD = new TableColumn();
+        columnaApellidoD.setHeaderValue("Apellido Doctor");
+
+        table1.addColumn(columnaNombreC);
+        table1.addColumn(columnaApellidoC);
+        table1.addColumn(columnaDia);
+        table1.addColumn(columnaNombreD);
+        table1.addColumn(columnaApellidoD);
+
+        for (Appointment a : appointments) {
+            //table1.add
+        }
+
 
     }
 

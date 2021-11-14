@@ -1,10 +1,10 @@
 package com.company.DAO;
 
 import com.company.Negocio.Appointment;
-import com.company.Negocio.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppointmentDAO implements FileDAO<Appointment> {
     @Override
@@ -22,6 +22,12 @@ public class AppointmentDAO implements FileDAO<Appointment> {
         List<Appointment> data = this.findAll();
 
         return data.stream().filter(entity -> entity.getId() == id).findAny().orElse(null);
+    }
+
+    public List<Appointment> findByUserId(long userId) {
+        List<Appointment> data = this.findAll();
+
+        return data.stream().filter(entity -> entity.getUser().getId() == userId).collect(Collectors.toList());
     }
 
 

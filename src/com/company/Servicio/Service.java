@@ -1,6 +1,7 @@
 package com.company.Servicio;
 
 import com.company.DAO.FileDAO;
+import com.company.Negocio.Appointment;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public abstract class Service<T> {
         return this.entityDAO.findById(id);
     }
 
+    public List<Appointment> findByUserId(long id) {
+        return this.entityDAO.findByUserId(id);
+    }
 
     public void create(T t) {
         this.entityDAO.create(t);

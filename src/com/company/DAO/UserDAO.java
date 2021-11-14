@@ -1,5 +1,6 @@
 package com.company.DAO;
 
+import com.company.Negocio.Appointment;
 import com.company.Negocio.User;
 
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class UserDAO implements FileDAO<User> {
         List<User> data = this.findAll();
 
         return data.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+    }
+
+    @Override
+    public List<Appointment> findByUserId(long id) {
+        return null;
     }
 
 
