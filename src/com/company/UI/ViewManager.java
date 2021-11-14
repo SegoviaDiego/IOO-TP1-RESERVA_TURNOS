@@ -1,5 +1,6 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
 import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class ViewManager {
 
     private LoginView loginView;
 
-    private MainMenu mainMenu;
+    private MainMenuView mainMenu;
 
     private SelectDoctor selectDoctorView;
 
@@ -30,7 +31,7 @@ public class ViewManager {
         this.loginView = new LoginView(this);
         this.loginView.init();
 
-        this.mainMenu = new MainMenu(this);
+        this.mainMenu = new MainMenuView(this);
         this.mainMenu.init();
 
         this.selectDoctorView = new SelectDoctor(this);
@@ -46,9 +47,9 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToMainMenuView() {
+    public void goToMainMenuView(User user) {
         this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.mainMenu.getView());
+        this.mainPanel.getContentPane().add(this.mainMenu.getView(user));
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }

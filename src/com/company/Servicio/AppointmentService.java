@@ -19,6 +19,10 @@ public class AppointmentService extends Service<Appointment> {
         return entityDAO.findById(id);
     }
 
+    public List<Appointment> findByUserId(long id){
+        return entityDAO.findByUserId(id);
+    }
+
     public void deleteById(long id) {
         Appointment entity = this.findById(id);
         entityDAO.delete(entity);
