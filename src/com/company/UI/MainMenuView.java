@@ -6,7 +6,9 @@ import com.company.Servicio.AppointmentService;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,34 +46,36 @@ public class MainMenuView extends BasicView {
 
     public JComponent getView(User user) {
         JComponent view = this.$$$getRootComponent$$$();
-        fillTable(user);
+        createTable(user);
         return view;
     }
 
-    public void fillTable(User user) {
+    public void createTable(User user) {
 
         AppointmentService service = new AppointmentService();
         List<Appointment> appointments = service.findByUserId(user.getId());
 
-        TableColumn columnaNombreC = new TableColumn();
-        columnaNombreC.setHeaderValue("nombre");
-        TableColumn columnaApellidoC = new TableColumn();
-        columnaApellidoC.setHeaderValue("Apellido");
+        TableColumn columnaCliente = new TableColumn();
+        columnaCliente.setHeaderValue("Cliente");
         TableColumn columnaDia = new TableColumn();
         columnaDia.setHeaderValue("Dia");
-        TableColumn columnaNombreD = new TableColumn();
-        columnaNombreD.setHeaderValue("Nombre Doctor");
-        TableColumn columnaApellidoD = new TableColumn();
-        columnaApellidoD.setHeaderValue("Apellido Doctor");
+        TableColumn columnaDoctor = new TableColumn();
+        columnaDoctor.setHeaderValue("Nombre Doctor");
 
-        table1.addColumn(columnaNombreC);
-        table1.addColumn(columnaApellidoC);
+
+        table1.addColumn(columnaCliente);
         table1.addColumn(columnaDia);
-        table1.addColumn(columnaNombreD);
-        table1.addColumn(columnaApellidoD);
+        table1.addColumn(columnaDoctor);
 
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        String data[];
         for (Appointment a : appointments) {
-            //table1.add
+            data = new String[]{
+                    a.getUser().getFirstName()+" "+
+                    a.getUser().getLastName(),
+                    a.getScheduledFor().toString(),
+                    a.getDoctor().getCredential()};//TODO: MOSTRAR NOMBRE DEL MEDICO
+            model.addRow(data);
         }
 
 

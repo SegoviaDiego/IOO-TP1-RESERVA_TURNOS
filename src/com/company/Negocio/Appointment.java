@@ -68,4 +68,12 @@ public class Appointment {
     public void setScheduledFor(Date scheduledFor) {
         this.scheduledFor = scheduledFor;
     }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }
