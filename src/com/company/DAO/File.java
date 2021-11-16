@@ -37,7 +37,12 @@ public class File {
             objectInputStream.close();
             fileInputStream.close();
 
-        } catch (FileNotFoundException e) {
+        }
+        catch (EOFException e){
+            e.printStackTrace();
+            return data;
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

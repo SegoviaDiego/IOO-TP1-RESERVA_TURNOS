@@ -7,16 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewManager {
+
+    private User loggedUser;
+
     private JFrame mainPanel;
-
     private LoginView loginView;
-
     private MainMenuView mainMenu;
-
     private SelectDoctor selectDoctorView;
+
+    private JFrame createAppointmentFrame;
+    private CreateAppointment createAppointment;
 
     public void init() {
         this.mainPanel = new JFrame();
+        this.createAppointmentFrame = new JFrame();
+        //this.createAppointmentFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         this.setTitle();
 
@@ -34,6 +39,9 @@ public class ViewManager {
         this.mainMenu = new MainMenuView(this);
         this.mainMenu.init();
 
+        this.createAppointment= new CreateAppointment(this);
+        this.createAppointment.init();
+
         this.selectDoctorView = new SelectDoctor(this);
         this.selectDoctorView.init();
     }
@@ -48,10 +56,20 @@ public class ViewManager {
     }
 
     public void goToMainMenuView(User user) {
+        this.loggedUser= user;
         this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.mainMenu.getView(user));
+        this.mainPanel.getContentPane().add(this.mainMenu.getView(this.loggedUser));
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
+    }
+
+    public void goToCreateAppointmentView() {
+        this.createAppointmentFrame.getContentPane().add(this.createAppointment.getView(this.loggedUser));
+        this.createAppointmentFrame.pack();
+        this.createAppointmentFrame.getContentPane().validate();
+        this.createAppointmentFrame.getContentPane().repaint();
+        this.createAppointmentFrame.setVisible(true);
+
     }
 
     public void goToSelectDoctorView() {
@@ -62,6 +80,7 @@ public class ViewManager {
     }
 
     // Internal methods
+    public void setLoggedUser(User user){this.loggedUser= user;}
 
     public void show() {
         this.mainPanel.setVisible(true);

@@ -14,6 +14,8 @@ public class Appointment {
     private Shift shift;
     private Doctor doctor;
 
+    public Appointment(){}
+
     public Appointment(int id, int doctorId, int userId, Date scheduledFor) {
         this.id = id;
         this.doctorId = doctorId;
