@@ -79,6 +79,10 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
+    public void hideForm(){
+        this.createAppointmentFrame.setVisible(false);
+    }
+
     // Internal methods
     public void setLoggedUser(User user){this.loggedUser= user;}
 

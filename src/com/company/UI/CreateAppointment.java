@@ -48,25 +48,31 @@ public class CreateAppointment extends BasicView {
         this.appointment.setUser(user);
         this.appointment.setUserId((int) user.getId());
 
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.hideForm();
+            }
+        });
         confirmAppointmentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveAppointment(appointment);
+                viewManager.hideForm();
             }
         });
-
         doctorCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: GUARDAR EL ID DEL DOCTOR Y ACTUALIZAR TURNOS DISPONIBLES
-                updateAvalableTurns();
+                updateAvailableTurns();
             }
         });
         dayCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: GUARDAR EL VALOR COMO DIA DEL TURNO Y ACTUALIZAR TURNOS DISPONIBLES
-                updateAvalableTurns();
+                updateAvailableTurns();
             }
         });
         monthCombo.addActionListener(new ActionListener() {
@@ -81,7 +87,6 @@ public class CreateAppointment extends BasicView {
                 //TODO: GUARDAR EL VALOR COMO AÑO DEL TURNO Y ACTUALIZAR TURNOS DISPONIBLES
             }
         });
-
         timeCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,13 +96,14 @@ public class CreateAppointment extends BasicView {
         return panel;
     }
 
-    private void updateAvalableTurns(){
+    private void updateAvailableTurns() {
 
     }
-    private void saveAppointment(Appointment appointment){
-       AppointmentService service =new AppointmentService();
-       service.create(appointment);
 
+    private void saveAppointment(Appointment appointment) {
+        AppointmentService service = new AppointmentService();
+        //service.create(appointment);
+        //TODO: MOSTRAR NOTIFICACION DE QUE SE GUARDO EL TURNO
     }
 
     {
