@@ -41,7 +41,7 @@ public class MainMenuView extends BasicView {
         this.registrarTurnoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                viewManager.goToCreateAppointmentView();
             }
         });
     }
@@ -97,7 +97,7 @@ public class MainMenuView extends BasicView {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (table1.getSelectedRow() > -1) {
-                    selectedAppointmentId= Long.valueOf(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    selectedAppointmentId = Long.valueOf(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                     System.out.println(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 }
             }

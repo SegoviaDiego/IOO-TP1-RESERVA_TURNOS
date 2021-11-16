@@ -1,5 +1,7 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
+
 import javax.swing.*;
 
 public abstract class BasicView {
