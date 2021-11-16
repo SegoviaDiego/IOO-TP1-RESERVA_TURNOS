@@ -1,10 +1,15 @@
 package com.company.UI;
 
 import com.company.Negocio.Appointment;
+import com.company.Negocio.Doctor;
 import com.company.Negocio.User;
 import com.company.Servicio.AppointmentService;
+import com.company.Servicio.DoctorService;
+import com.company.Servicio.UserService;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -22,6 +27,8 @@ public class MainMenuView extends BasicView {
     private JLabel mainMenuTitle;
     private JTable table1;
     private JButton cancelarTurnoButton;
+
+    public long selectedAppointmentId;
 
     MainMenuView(ViewManager viewManager) {
         super(viewManager);
@@ -52,9 +59,14 @@ public class MainMenuView extends BasicView {
 
     public void createTable(User user) {
 
-        AppointmentService service = new AppointmentService();
-        List<Appointment> appointments = service.findByUserId(user.getId());
+        AppointmentService appointmentService = new AppointmentService();
+        UserService userService = new UserService();
+        User doctor;
+        List<Appointment> appointments = appointmentService.findByUserId(user.getId());
 
+        TableColumn columnaId = new TableColumn();
+        columnaId.setMaxWidth(0);
+        columnaId.setMinWidth(0);
         TableColumn columnaCliente = new TableColumn();
         columnaCliente.setHeaderValue("Cliente");
         TableColumn columnaDia = new TableColumn();
@@ -70,14 +82,26 @@ public class MainMenuView extends BasicView {
         DefaultTableModel model = (DefaultTableModel) table1.getModel();
         String data[];
         for (Appointment a : appointments) {
+            doctor = userService.findById(a.getDoctorId());
+
             data = new String[]{
-                    a.getUser().getFirstName()+" "+
-                    a.getUser().getLastName(),
+                    String.valueOf(a.getId()),
+                    a.getUser().getFirstName() + " " +
+                            a.getUser().getLastName(),
                     a.getScheduledFor().toString(),
-                    a.getDoctor().getCredential()};//TODO: MOSTRAR NOMBRE DEL MEDICO
+                    doctor.getLastName() + ", " + doctor.getLastName()};
             model.addRow(data);
         }
 
+        table1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (table1.getSelectedRow() > -1) {
+                    selectedAppointmentId= Long.valueOf(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    System.out.println(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                }
+            }
+        });
 
     }
 
