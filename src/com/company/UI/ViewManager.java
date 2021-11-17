@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewManager {
+
     private User loggedUser;
 
     private JFrame mainPanel;
