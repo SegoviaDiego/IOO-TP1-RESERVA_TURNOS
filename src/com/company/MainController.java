@@ -1,6 +1,10 @@
 package com.company;
 
+import com.company.Negocio.User;
+import com.company.Servicio.UserService;
 import com.company.UI.ViewManager;
+
+import java.util.Optional;
 
 public class MainController {
     public static void main(String[] args) {
@@ -9,6 +13,5 @@ public class MainController {
         viewManager.show();
 
         viewManager.goToLoginView();
-//        viewManager.goToSelectDoctorView();
     }
 }
