@@ -8,10 +8,10 @@ import java.util.List;
 public class DoctorDAO implements FileDAO<Doctor> {
     @Override
     public List<Doctor> findAll() {
-        File entityDatabase = this.getFile();
-        List data = entityDatabase.get();
+        File doctorDatabase = this.getFile();
+        List<Doctor> data = doctorDatabase.get();
 
-        if (data == null) data = new ArrayList<>();
+        if (data == null) data = new ArrayList<Doctor>();
 
         return data;
     }
@@ -20,44 +20,44 @@ public class DoctorDAO implements FileDAO<Doctor> {
     public Doctor findById(long id) {
         List<Doctor> data = this.findAll();
 
-        return data.stream().filter(entity -> entity.getId() == id).findAny().orElse(null);
+        return data.stream().filter(doctor -> doctor.getId() == id).findAny().orElse(null);
     }
 
 
     @Override
-    public void create(Doctor entity) {
+    public void create(Doctor doctor) {
         List<Doctor> data = this.findAll();
 
-        entity.setId(this.generateId(data));
-        data.add(entity);
+        doctor.setId(this.generateId(data));
+        data.add(doctor);
 
         this.save(data);
     }
 
     @Override
-    public void update(Doctor entity) {
+    public void update(Doctor doctor) {
         List<Doctor> data = this.findAll();
 
-        for (Doctor e : data)
-            if (entity.getId() == e.getId())
-                DAO.setFields(entity, e);
+        for (Doctor u : data)
+            if (doctor.getId() == u.getId())
+                DAO.setFields(doctor, u);
 
         this.save(data);
     }
 
     @Override
-    public void delete(Doctor entity) {
+    public void delete(Doctor doctor) {
         List<Doctor> data = this.findAll();
 
-        data.removeIf(e -> e.getId() == entity.getId());
+        data.removeIf(u -> u.getId() == doctor.getId());
 
         this.save(data);
     }
 
     @Override
     public void save(List<Doctor> data) {
-        File entityDatabase = this.getFile();
-        entityDatabase.save(data);
+        File doctorDatabase = this.getFile();
+        doctorDatabase.save(data);
     }
 
     @Override
@@ -67,9 +67,9 @@ public class DoctorDAO implements FileDAO<Doctor> {
 
     private long generateId(List<Doctor> data) {
         long latestId = 0;
-        for (Doctor entity : data) {
-            if (entity.getId() > latestId)
-                latestId = entity.getId();
+        for (Doctor doctor : data) {
+            if (doctor.getId() > latestId)
+                latestId = doctor.getId();
         }
 
         return latestId + 1;

@@ -1,8 +1,6 @@
 package com.company.UI;
 
 import com.company.Negocio.User;
-import com.company.UI.Appointment.Schedule.SelectAppointment;
-import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +12,9 @@ public class ViewManager {
 
     private MainMenu mainMenu;
 
-    private SelectDoctor selectDoctorView;
+    private CreateAppointment createaAppointmentView;
 
-    private SelectAppointment selectAppointmentView;
+    private User user;
 
     public void init() {
         this.mainPanel = new JFrame();
@@ -30,6 +28,10 @@ public class ViewManager {
         this.fitToScreen(defaultScreenWidth, defaultScreenHeight);
 
         this.centerToScreen(defaultScreenWidth, defaultScreenHeight);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // Navigation methods
@@ -54,24 +56,14 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToSelectDoctorView() {
-        this.selectDoctorView = new SelectDoctor(this);
-        this.selectDoctorView.init();
+    public void goToCreateAppointmentView() {
+        this.createaAppointmentView = new CreateAppointment(this);
+        this.createaAppointmentView.init();
+
+        this.createaAppointmentView.setUser(user);
 
         this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
-        this.mainPanel.getContentPane().validate();
-        this.mainPanel.getContentPane().repaint();
-    }
-
-    public void goToSelectAppointmentView(User user) {
-        this.selectAppointmentView = new SelectAppointment(this);
-        this.selectAppointmentView.init();
-
-        this.selectAppointmentView.setSelectedDoctor(user);
-
-        this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.selectAppointmentView.getView());
+        this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }

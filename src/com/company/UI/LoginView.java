@@ -44,6 +44,7 @@ public class LoginView extends BasicView {
 
         if (user.isPresent()) {
             System.out.println("El usuario ha ingresado en el sistema.");
+            viewManager.setUser(user.get());
             viewManager.goToMainMenuView();
         } else {
             // TODO: Handle invalid credentials exception.
