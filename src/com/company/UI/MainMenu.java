@@ -23,7 +23,7 @@ public class MainMenu extends BasicView {
         this.registrarTurnoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                viewManager.goToSelectDoctorView();
             }
         });
     }

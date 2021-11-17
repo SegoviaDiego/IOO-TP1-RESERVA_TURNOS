@@ -2,6 +2,7 @@ package com.company.Negocio;
 
 public class Doctor {
     private long id;
+    private long userId;
     private String credential; // Matricula
 
     // Related entities
@@ -45,5 +46,13 @@ public class Doctor {
 
     public void setShift(Shift shift) {
         this.shift = shift;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

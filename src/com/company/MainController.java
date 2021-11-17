@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.Negocio.User;
+import com.company.Servicio.UserService;
 import com.company.UI.ViewManager;
 
 public class MainController {
@@ -8,7 +10,8 @@ public class MainController {
         viewManager.init();
         viewManager.show();
 
-        viewManager.goToLoginView();
-//        viewManager.goToSelectDoctorView();
+//        viewManager.goToLoginView();
+        // TODO: Remove before PR. Uncomment.
+        viewManager.goToSelectDoctorView();
     }
 }

@@ -1,5 +1,7 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
+import com.company.UI.Appointment.Schedule.SelectAppointment;
 import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
@@ -14,6 +16,8 @@ public class ViewManager {
 
     private SelectDoctor selectDoctorView;
 
+    private SelectAppointment selectAppointmentView;
+
     public void init() {
         this.mainPanel = new JFrame();
 
@@ -26,20 +30,14 @@ public class ViewManager {
         this.fitToScreen(defaultScreenWidth, defaultScreenHeight);
 
         this.centerToScreen(defaultScreenWidth, defaultScreenHeight);
-
-        this.loginView = new LoginView(this);
-        this.loginView.init();
-
-        this.mainMenu = new MainMenu(this);
-        this.mainMenu.init();
-
-        this.selectDoctorView = new SelectDoctor(this);
-        this.selectDoctorView.init();
     }
 
     // Navigation methods
 
     public void goToLoginView() {
+        this.loginView = new LoginView(this);
+        this.loginView.init();
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
         this.mainPanel.getContentPane().validate();
@@ -47,6 +45,9 @@ public class ViewManager {
     }
 
     public void goToMainMenuView() {
+        this.mainMenu = new MainMenu(this);
+        this.mainMenu.init();
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.mainMenu.getView());
         this.mainPanel.getContentPane().validate();
@@ -54,8 +55,23 @@ public class ViewManager {
     }
 
     public void goToSelectDoctorView() {
+        this.selectDoctorView = new SelectDoctor(this);
+        this.selectDoctorView.init();
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
+    public void goToSelectAppointmentView(User user) {
+        this.selectAppointmentView = new SelectAppointment(this);
+        this.selectAppointmentView.init();
+
+        this.selectAppointmentView.setSelectedDoctor(user);
+
+        this.mainPanel.getContentPane().removeAll();
+        this.mainPanel.getContentPane().add(this.selectAppointmentView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }

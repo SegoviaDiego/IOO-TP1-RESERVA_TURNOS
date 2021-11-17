@@ -7,17 +7,19 @@ import com.company.UI.ViewManager;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 public class SelectDoctor extends BasicView {
     private JPanel panel1;
-    private JTable doctorTable;
     private JLabel title;
-    private JScrollPane tablePanel;
+    private JComboBox<String> doctorComboBox;
+    private JButton nextStepButton;
 
     public SelectDoctor(ViewManager viewManager) {
         super(viewManager);
@@ -27,26 +29,44 @@ public class SelectDoctor extends BasicView {
     public void init() {
         this.$$$setupUI$$$();
 
-        this.doctorTable.setEnabled(false);
+        this.refreshComboBoxData();
 
-        this.refreshTableData();
+        this.nextStepButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goToSelectAppointmentView();
+            }
+
+
+        });
     }
 
-    private void refreshTableData() {
+    private void goToSelectAppointmentView() {
+        final UserService userService = new UserService();
+        final List<User> doctors = userService.getAllDoctors();
+
+        final String selectedItem = (String) doctorComboBox.getSelectedItem();
+
+        if (selectedItem != null) {
+            Optional<User> filteredDoctorList = doctors.stream().filter(u -> selectedItem.equals(u.getId() + " " + u.getFullName())).findFirst();
+
+            if (filteredDoctorList.isPresent())
+                viewManager.goToSelectAppointmentView(filteredDoctorList.get());
+        }
+    }
+
+    private void refreshComboBoxData() {
         UserService userService = new UserService();
-
-        Object[][] data = {};
-
-        String[] columns = {"ID", "Nombre", "Apellido"};
-
-        DefaultTableModel model = new DefaultTableModel(data, columns);
 
         List<User> doctors = userService.getAllDoctors();
 
         if (!doctors.isEmpty())
-            doctors.stream().forEach(doctor -> model.addRow(new Object[]{doctor.getId(), doctor.getFirstName(), doctor.getLastName()}));
+            doctors.stream().forEach(doctor -> doctorComboBox.addItem(this.getDoctorComboBoxItem(doctor)));
+    }
 
-        this.doctorTable.setModel(model);
+    private String getDoctorComboBoxItem(User doctor) {
+        return doctor.getId() + " " + doctor.getFullName();
     }
 
     @Override
@@ -85,16 +105,16 @@ public class SelectDoctor extends BasicView {
         title.setText("Seleccione un doctor");
         panel3.add(title, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel4 = new JPanel();
-        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel4, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        tablePanel = new JScrollPane();
-        panel4.add(tablePanel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        doctorTable = new JTable();
-        doctorTable.setAutoCreateRowSorter(true);
-        doctorTable.setFillsViewportHeight(true);
-        Font doctorTableFont = this.$$$getFont$$$("Roboto Light", Font.BOLD, 14, doctorTable.getFont());
-        if (doctorTableFont != null) doctorTable.setFont(doctorTableFont);
-        tablePanel.setViewportView(doctorTable);
+        doctorComboBox = new JComboBox();
+        Font doctorComboBoxFont = this.$$$getFont$$$("Roboto Light", Font.PLAIN, 14, doctorComboBox.getFont());
+        if (doctorComboBoxFont != null) doctorComboBox.setFont(doctorComboBoxFont);
+        doctorComboBox.setToolTipText("Seleccione un doctor");
+        panel4.add(doctorComboBox, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        nextStepButton = new JButton();
+        nextStepButton.setText("Seleccionar turno");
+        panel4.add(nextStepButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
