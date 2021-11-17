@@ -10,6 +10,8 @@ public class ViewManager {
 
     private LoginView loginView;
 
+    private RegisterView registerView;
+
     private MainMenu mainMenu;
 
     private SelectDoctor selectDoctorView;
@@ -30,6 +32,9 @@ public class ViewManager {
         this.loginView = new LoginView(this);
         this.loginView.init();
 
+        this.registerView = new RegisterView(this);
+        this.registerView.init();
+
         this.mainMenu = new MainMenu(this);
         this.mainMenu.init();
 
@@ -42,6 +47,13 @@ public class ViewManager {
     public void goToLoginView() {
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
+    public void goToRegisterView() {
+        this.mainPanel.getContentPane().removeAll();
+        this.mainPanel.getContentPane().add(this.registerView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
