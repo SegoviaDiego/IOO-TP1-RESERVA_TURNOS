@@ -27,6 +27,7 @@ public class LoginView extends BasicView {
     @Override
     public void init() {
         this.$$$setupUI$$$();
+        this.errorField.setText("");
 
         this.signInButton.addActionListener(new ActionListener() {
             @Override
