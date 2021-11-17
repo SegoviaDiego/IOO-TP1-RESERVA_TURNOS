@@ -1,7 +1,6 @@
 package com.company.UI;
 
 import com.company.Negocio.User;
-import com.company.Negocio.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +11,11 @@ public class ViewManager {
 
     private JFrame mainPanel;
     private LoginView loginView;
-
+    private RegisterView registerView;
     private CreateAppointment createaAppointmentView;
+    private MainMenuView mainMenu;
 
     private User user;
-    private MainMenuView mainMenu;
 
     private JFrame createAppointmentFrame;
     private CreateAppointment createAppointment;
@@ -41,10 +40,11 @@ public class ViewManager {
     }
 
     // Navigation methods
-
     public void goToLoginView() {
         this.loginView = new LoginView(this);
         this.loginView.init();
+
+
 
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
@@ -62,6 +62,15 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
+    public void goToRegisterView() {
+        this.registerView = new RegisterView(this);
+        this.registerView.init();
+        this.mainPanel.getContentPane().removeAll();
+        this.mainPanel.getContentPane().add(this.registerView.getView());
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
     public void goToCreateAppointmentView() {
         this.createaAppointmentView = new CreateAppointment(this);
         this.createaAppointmentView.init();
@@ -69,10 +78,6 @@ public class ViewManager {
         this.createAppointmentFrame.getContentPane().add(this.createaAppointmentView.getView());
         this.createAppointmentFrame.pack();
         this.createAppointmentFrame.setVisible(true);
-        //this.mainPanel.getContentPane().removeAll();
-        //this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
-        //this.mainPanel.getContentPane().validate();
-        //this.mainPanel.getContentPane().repaint();
     }
 
     public void hideForm(){
