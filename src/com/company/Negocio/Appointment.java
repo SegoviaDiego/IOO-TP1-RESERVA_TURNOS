@@ -1,26 +1,28 @@
 package com.company.Negocio;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Appointment {
+public class Appointment implements Serializable {
     private long id;
-    private int doctorId;
-    private int userId;
-    private Date scheduledFor; // Datetime de comienzo del turno.
+    private long doctorId;
+    private long userId;
+    private int year;
+    private int month;
+    private int day;
+    private int startsAt; // Datetime de comienzo del turno.
 
     // Related Entities
 
     private User user;
-    private Shift shift;
-    private Doctor doctor;
 
-    public Appointment(){}
-
-    public Appointment(int id, int doctorId, int userId, Date scheduledFor) {
+    public Appointment(long id, long doctorId, long userId, int year, int month, int day, int startsAt) {
         this.id = id;
         this.doctorId = doctorId;
         this.userId = userId;
-        this.scheduledFor = scheduledFor;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.startsAt = startsAt;
     }
 
     public long getId() {
@@ -31,19 +33,19 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getDoctorId() {
+    public long getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -55,27 +57,35 @@ public class Appointment {
         this.user = user;
     }
 
-    public Shift getShift() {
-        return shift;
+    public int getStartsAt() {
+        return startsAt;
     }
 
-    public void setShift(Shift shift) {
-        this.shift = shift;
+    public void setStartsAt(int startsAt) {
+        this.startsAt = startsAt;
     }
 
-    public Date getScheduledFor() {
-        return scheduledFor;
+    public int getYear() {
+        return year;
     }
 
-    public void setScheduledFor(Date scheduledFor) {
-        this.scheduledFor = scheduledFor;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public int getMonth() {
+        return month;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 }

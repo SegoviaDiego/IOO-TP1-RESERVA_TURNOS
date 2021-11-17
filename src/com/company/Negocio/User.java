@@ -1,7 +1,11 @@
 package com.company.Negocio;
 
+import com.company.Servicio.DoctorService;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 enum UserRole {
     DOCTOR,
@@ -117,6 +121,15 @@ public class User implements Serializable {
     }
 
     public Doctor getDoctor() {
+        if (doctor == null) {
+            DoctorService doctorService = new DoctorService();
+            List<Doctor> dl = doctorService.findAll();
+
+            Optional<Doctor> doc = dl.stream().filter(d -> d.getUserId() == this.getId()).findFirst();
+
+            doc.ifPresent(value -> doctor = value);
+        }
+
         return doctor;
     }
 
@@ -146,5 +159,9 @@ public class User implements Serializable {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

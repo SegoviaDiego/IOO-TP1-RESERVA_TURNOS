@@ -18,8 +18,10 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
 
 public class MainMenuView extends BasicView {
     private JPanel panel1;
@@ -54,44 +56,29 @@ public class MainMenuView extends BasicView {
     public JComponent getView(User user) {
         JComponent view = this.$$$getRootComponent$$$();
         createTable(user);
+
+        this.cancelarTurnoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "¿Desea continuar?", "Esta a punto de cancelar el turno seleccionado", JOptionPane.YES_NO_OPTION);
+
+                if (response == 0) {
+                    AppointmentService service = new AppointmentService();
+                    service.deleteById(selectedAppointmentId);
+                    createTable(user);
+                }
+            }
+        });
         return view;
     }
 
     public void createTable(User user) {
 
-        AppointmentService appointmentService = new AppointmentService();
-        UserService userService = new UserService();
-        User doctor;
-        List<Appointment> appointments = appointmentService.findByUserId(user.getId());
-
-        TableColumn columnaId = new TableColumn();
-        columnaId.setMaxWidth(0);
-        columnaId.setMinWidth(0);
-        TableColumn columnaCliente = new TableColumn();
-        columnaCliente.setHeaderValue("Cliente");
-        TableColumn columnaDia = new TableColumn();
-        columnaDia.setHeaderValue("Dia");
-        TableColumn columnaDoctor = new TableColumn();
-        columnaDoctor.setHeaderValue("Nombre Doctor");
-
-
-        table1.addColumn(columnaCliente);
-        table1.addColumn(columnaDia);
-        table1.addColumn(columnaDoctor);
-
         DefaultTableModel model = (DefaultTableModel) table1.getModel();
-        String data[];
-        for (Appointment a : appointments) {
-            doctor = userService.findById(a.getDoctorId());
+        Object[] columns = new Object[]{"ID turno", "cliente", "Fecha", "Doctor"};
 
-            data = new String[]{
-                    String.valueOf(a.getId()),
-                    a.getUser().getFirstName() + " " +
-                            a.getUser().getLastName(),
-                    a.getScheduledFor().toString(),
-                    doctor.getLastName() + ", " + doctor.getLastName()};
-            model.addRow(data);
-        }
+        model.setDataVector(getTableData(user), columns);
+
 
         table1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -103,6 +90,43 @@ public class MainMenuView extends BasicView {
             }
         });
 
+    }
+
+    private Object[][] getTableData(User user) {
+        AppointmentService appointmentService = new AppointmentService();
+        UserService userService = new UserService();
+        User doctor;
+        List<Appointment> appointments = appointmentService.findByUserId(user.getId());
+
+        Object data[][] = new Object[appointments.size()][4];
+        //Object data[][] = new Object[3][4];
+        Object row[];
+        int i = 0;
+
+        Date date;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+
+        for (Appointment a : appointments) {
+            doctor = userService.findById(a.getDoctorId());
+            date = new Date(a.getYear() - 1900, a.getMonth() + 1, a.getDay(), a.getStartsAt(), 0);
+
+            row = new Object[]{
+                    String.valueOf(a.getId()),
+                    user.getLastName() + ", " + user.getFirstName(),
+                    dateFormat.format(date),
+                    doctor.getLastName() + ", " + doctor.getFirstName()
+            };
+            data[i] = row;
+            i++;
+        }
+
+        /*
+        //testRows
+        data[0] = new Object[]{"1", "nom", "fecha", "doc"};
+        data[1] = new Object[]{"2", "nom", "fecha", "doc"};
+        data[2] = new Object[]{"3", "nom", "fecha", "doc"};
+        */
+        return data;
     }
 
     {
@@ -138,6 +162,7 @@ public class MainMenuView extends BasicView {
         cancelarTurnoButton.setText("Cancelar turno");
         panel4.add(cancelarTurnoButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_NORTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
+        scrollPane1.setHorizontalScrollBarPolicy(31);
         panel3.add(scrollPane1, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1 = new JTable();
         scrollPane1.setViewportView(table1);

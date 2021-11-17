@@ -1,23 +1,30 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
 import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ViewManager {
+
+    private User loggedUser;
+
     private JFrame mainPanel;
-
     private LoginView loginView;
-
     private RegisterView registerView;
-
-    private MainMenu mainMenu;
-
     private SelectDoctor selectDoctorView;
+    private CreateAppointment createaAppointmentView;
+    private MainMenuView mainMenu;
+
+    private User user;
+
+    private JFrame createAppointmentFrame;
+    private CreateAppointment createAppointment;
 
     public void init() {
         this.mainPanel = new JFrame();
+        this.createAppointmentFrame = new JFrame();
 
         this.setTitle();
 
@@ -28,51 +35,67 @@ public class ViewManager {
         this.fitToScreen(defaultScreenWidth, defaultScreenHeight);
 
         this.centerToScreen(defaultScreenWidth, defaultScreenHeight);
+    }
 
-        this.loginView = new LoginView(this);
-        this.loginView.init();
-
-        this.registerView = new RegisterView(this);
-        this.registerView.init();
-
-        this.mainMenu = new MainMenu(this);
-        this.mainMenu.init();
-
-        this.selectDoctorView = new SelectDoctor(this);
-        this.selectDoctorView.init();
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // Navigation methods
-
     public void goToLoginView() {
+        this.loginView = new LoginView(this);
+        this.loginView.init();
+
+
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
 
+    public void goToMainMenuView() {
+        this.loggedUser= user;
+        this.mainMenu = new MainMenuView(this);
+        this.mainMenu.init();
+        this.mainPanel.getContentPane().removeAll();
+        this.mainPanel.getContentPane().add(this.mainMenu.getView(this.loggedUser));
+        this.mainPanel.getContentPane().validate();
+        this.mainPanel.getContentPane().repaint();
+    }
+
     public void goToRegisterView() {
+        this.registerView = new RegisterView(this);
+        this.registerView.init();
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.registerView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToMainMenuView() {
-        this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.mainMenu.getView());
-        this.mainPanel.getContentPane().validate();
-        this.mainPanel.getContentPane().repaint();
+        public void goToCreateAppointmentView() {
+        this.createaAppointmentView = new CreateAppointment(this);
+        this.createaAppointmentView.init();
+        this.createaAppointmentView.setUser(user);
+        this.createAppointmentFrame.getContentPane().add(this.createaAppointmentView.getView());
+        this.createAppointmentFrame.pack();
+        this.createAppointmentFrame.setVisible(true);
     }
-
     public void goToSelectDoctorView() {
+        this.selectDoctorView = new SelectDoctor(this);
+        this.selectDoctorView.init();
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
 
+    public void hideForm(){
+        this.createAppointmentFrame.setVisible(false);
+    }
+
     // Internal methods
+    public void setLoggedUser(User user){this.loggedUser= user;}
 
     public void show() {
         this.mainPanel.setVisible(true);
