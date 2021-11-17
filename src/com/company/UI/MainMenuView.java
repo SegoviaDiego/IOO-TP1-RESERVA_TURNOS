@@ -18,10 +18,10 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.Vector;
 
 public class MainMenuView extends BasicView {
     private JPanel panel1;
@@ -103,13 +103,18 @@ public class MainMenuView extends BasicView {
         Object row[];
         int i = 0;
 
+        Date date;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+
         for (Appointment a : appointments) {
             doctor = userService.findById(a.getDoctorId());
+            date = new Date(a.getYear() - 1900, a.getMonth() + 1, a.getDay(), a.getStartsAt(), 0);
+
             row = new Object[]{
                     String.valueOf(a.getId()),
                     user.getLastName() + ", " + user.getFirstName(),
-                    new Date(a.getYear(), a.getMonth(), a.getDay(), a.getStartsAt(), 0).toString(),
-                    doctor.getLastName() + ", " + doctor.getLastName()
+                    dateFormat.format(date),
+                    doctor.getLastName() + ", " + doctor.getFirstName()
             };
             data[i] = row;
             i++;
