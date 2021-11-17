@@ -8,8 +8,11 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class RegisterView extends BasicView {
     private JPanel mainPanel;
@@ -23,7 +26,9 @@ public class RegisterView extends BasicView {
     private JButton cancelButton;
     private JLabel errorField;
 
-    public RegisterView(ViewManager viewManager) { super(viewManager); }
+    public RegisterView(ViewManager viewManager) {
+        super(viewManager);
+    }
 
     @Override
     public void init() {
@@ -31,17 +36,23 @@ public class RegisterView extends BasicView {
 
         this.registerButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { register(); }
+            public void actionPerformed(ActionEvent e) {
+                register();
+            }
         });
 
         this.cancelButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { cancel(); }
+            public void actionPerformed(ActionEvent e) {
+                cancel();
+            }
         });
     }
 
     private void register() {
-        User user = createUser();
+        if (!checkForErrors()) {
+            User user = createUser();
+        }
     }
 
     private void cancel() {
@@ -49,22 +60,21 @@ public class RegisterView extends BasicView {
     }
 
     private User createUser() {
-        if (!checkForErrors()) {
-            User user = new User();
-            user.setId(1);
-            user.setFirstName(firstNameField.getText());
-            user.setLastName(lastNameField.getText());
-            user.setUsername(usernameField.getText());
-            user.setPassword(usernameField.getText());
-            user.setDni(dniField.getText());
-            user.setAddress(addressField.getText());
-            return user;
-        }
+        User user = new User(1, firstNameField.getText(), lastNameField.getText(), addressField.getText(), dniField.getText(), usernameField.getText(), passwordField.getText());
+        return user;
     }
 
     private boolean checkForErrors() {
         this.errorField.setText("Loading...");
-        if (true) {
+        List<JTextField> fields = Arrays.asList(usernameField, passwordField, firstNameField, lastNameField, dniField, addressField);
+        for (JTextField field : fields) {
+            if (field.getText().replaceAll("\\s", "").isEmpty()) {
+                this.errorField.setText("Uno o más campos están vacíos");
+                return true;
+            }
+        }
+        if (Pattern.matches("[0-9]+]", dniField.getText())) {
+            this.errorField.setText("El DNI debe contener únicamente números");
             return true;
         }
         return false;
@@ -86,7 +96,7 @@ public class RegisterView extends BasicView {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         mainPanel.add(panel1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -130,7 +140,7 @@ public class RegisterView extends BasicView {
         panel2.add(addressField, new com.intellij.uiDesigner.core.GridConstraints(11, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
-        mainPanel.add(panel3, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        mainPanel.add(panel3, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         registerButton = new JButton();
         registerButton.setHorizontalTextPosition(0);
         registerButton.setText("Crear usuario");
@@ -139,6 +149,15 @@ public class RegisterView extends BasicView {
         cancelButton.setHorizontalTextPosition(0);
         cancelButton.setText("Volver");
         panel3.add(cancelButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel.add(panel4, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        errorField = new JLabel();
+        errorField.setForeground(new Color(-628642));
+        errorField.setHorizontalAlignment(0);
+        errorField.setHorizontalTextPosition(0);
+        errorField.setText("");
+        panel4.add(errorField, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -172,6 +191,6 @@ public class RegisterView extends BasicView {
 
     @Override
     public JComponent getView() {
-        return null;
+        return this.$$$getRootComponent$$$();
     }
 }
