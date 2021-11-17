@@ -9,6 +9,5 @@ public class MainController {
         viewManager.show();
 
         viewManager.goToLoginView();
-//        viewManager.goToSelectDoctorView();
     }
 }
