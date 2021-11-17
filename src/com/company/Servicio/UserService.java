@@ -30,4 +30,13 @@ public class UserService extends Service<User> {
 
         return doctors.collect(Collectors.toList());
     }
+
+    public List<User> getAllUsers() {
+        List<User> data = entityDAO.findAll();
+
+        // TODO: Make "user" an enum rather than a hardcoded value.
+        Stream<User> users = data.stream().filter(User::isPatient);
+
+        return users.collect(Collectors.toList());
+    }
 }

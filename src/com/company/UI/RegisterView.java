@@ -1,6 +1,7 @@
 package com.company.UI;
 
 import com.company.Negocio.User;
+import com.company.Servicio.UserService;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -52,6 +53,11 @@ public class RegisterView extends BasicView {
     private void register() {
         if (!checkForErrors()) {
             User user = createUser();
+            UserService userService = new UserService();
+            userService.create(user);
+
+            System.out.println("Usuario registrado exitosamente.");
+            cancel();
         }
     }
 
@@ -60,23 +66,33 @@ public class RegisterView extends BasicView {
     }
 
     private User createUser() {
-        User user = new User(1, firstNameField.getText(), lastNameField.getText(), addressField.getText(), dniField.getText(), usernameField.getText(), passwordField.getText());
+        UserService userService = new UserService();
+        int id = (int) userService.getAllUsers().stream().count() + 1;
+        User user = new User(id, firstNameField.getText(), lastNameField.getText(), addressField.getText(), dniField.getText(), usernameField.getText(), passwordField.getText());
+
         return user;
     }
 
     private boolean checkForErrors() {
         this.errorField.setText("Loading...");
+
+        UserService userService = new UserService();
+        List<User> data = userService.findAll();
         List<JTextField> fields = Arrays.asList(usernameField, passwordField, firstNameField, lastNameField, dniField, addressField);
+
         for (JTextField field : fields) {
             if (field.getText().replaceAll("\\s", "").isEmpty()) {
                 this.errorField.setText("Uno o más campos están vacíos");
                 return true;
             }
         }
-        if (!Pattern.matches("[0-9]+]", dniField.getText())) {
+
+        if (!Pattern.matches("[0-9]+", dniField.getText())) {
             this.errorField.setText("El DNI debe contener únicamente números");
             return true;
         }
+
+        this.errorField.setText("");
         return false;
     }
 
