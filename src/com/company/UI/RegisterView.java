@@ -74,7 +74,8 @@ public class RegisterView extends BasicView {
             UserService userService = new UserService();
             User user = createUser();
             if (doctorCheckBox.isSelected()) {
-                Doctor doctor = new Doctor((int) user.getId(), firstNameField.getText(), lastNameField.getText(), credentialTextfield.getText());
+                long id = userService.getAllDoctors().stream().count() + 1;
+                Doctor doctor = new Doctor(id, user.getId(), credentialTextfield.getText(), 0, 8);
                 doctor.setUser(user);
                 DoctorService doctorService = new DoctorService();
                 doctorService.create(doctor);

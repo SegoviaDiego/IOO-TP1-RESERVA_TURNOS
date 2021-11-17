@@ -1,7 +1,6 @@
 package com.company.UI;
 
 import com.company.Negocio.User;
-import com.company.UI.Appointment.Schedule.SelectDoctor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,6 @@ public class ViewManager {
     private JFrame mainPanel;
     private LoginView loginView;
     private RegisterView registerView;
-    private SelectDoctor selectDoctorView;
     private CreateAppointment createaAppointmentView;
     private MainMenuView mainMenu;
 
@@ -73,21 +71,13 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-        public void goToCreateAppointmentView() {
+    public void goToCreateAppointmentView() {
         this.createaAppointmentView = new CreateAppointment(this);
         this.createaAppointmentView.init();
         this.createaAppointmentView.setUser(user);
         this.createAppointmentFrame.getContentPane().add(this.createaAppointmentView.getView());
         this.createAppointmentFrame.pack();
         this.createAppointmentFrame.setVisible(true);
-    }
-    public void goToSelectDoctorView() {
-        this.selectDoctorView = new SelectDoctor(this);
-        this.selectDoctorView.init();
-        this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
-        this.mainPanel.getContentPane().validate();
-        this.mainPanel.getContentPane().repaint();
     }
 
     public void hideForm(){
