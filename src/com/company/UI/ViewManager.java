@@ -43,9 +43,6 @@ public class ViewManager {
     public void goToLoginView() {
         this.loginView = new LoginView(this);
         this.loginView.init();
-
-
-
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
         this.mainPanel.getContentPane().validate();

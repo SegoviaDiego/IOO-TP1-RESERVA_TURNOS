@@ -117,6 +117,7 @@ public class CreateAppointment extends BasicView {
     }
 
     private void loadDoctorsComboBox() {
+        doctorComboBox.removeAllItems();
         UserService userService = new UserService();
 
         List<User> doctors = userService.getAllDoctors();
