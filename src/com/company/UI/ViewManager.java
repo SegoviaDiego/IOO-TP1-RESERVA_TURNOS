@@ -67,15 +67,12 @@ public class ViewManager {
         this.createaAppointmentView.init();
         this.createaAppointmentView.setUser(user);
         this.createAppointmentFrame.getContentPane().add(this.createaAppointmentView.getView());
+        this.createAppointmentFrame.pack();
         this.createAppointmentFrame.setVisible(true);
         //this.mainPanel.getContentPane().removeAll();
         //this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
         //this.mainPanel.getContentPane().validate();
         //this.mainPanel.getContentPane().repaint();
-    }
-
-    public void showConfirmationDialog(long selectedAppointmentId) {
-
     }
 
     public void hideForm(){

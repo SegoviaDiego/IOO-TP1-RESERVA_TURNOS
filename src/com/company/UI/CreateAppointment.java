@@ -113,6 +113,7 @@ public class CreateAppointment extends BasicView {
 
     private void goToMainMenuView() {
         this.viewManager.goToMainMenuView();
+        this.viewManager.hideForm();
     }
 
     private void loadDoctorsComboBox() {
