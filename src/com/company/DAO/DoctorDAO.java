@@ -2,6 +2,7 @@ package com.company.DAO;
 
 import com.company.Negocio.Appointment;
 import com.company.Negocio.Doctor;
+import com.company.Servicio.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,8 @@ public class DoctorDAO implements FileDAO<Doctor> {
     }
 
     private long generateId(List<Doctor> data) {
-        long latestId = 0;
+        UserService userService = new UserService();
+        long latestId = userService.getAll().stream().count();
         for (Doctor doctor : data) {
             if (doctor.getId() > latestId)
                 latestId = doctor.getId();

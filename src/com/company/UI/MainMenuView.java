@@ -133,12 +133,6 @@ public class MainMenuView extends BasicView {
 
         }
 
-        /*
-        //testRows
-        data[0] = new Object[]{"1", "nom", "fecha", "doc"};
-        data[1] = new Object[]{"2", "nom", "fecha", "doc"};
-        data[2] = new Object[]{"3", "nom", "fecha", "doc"};
-        */
         return data;
     }
 

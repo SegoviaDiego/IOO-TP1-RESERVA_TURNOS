@@ -74,11 +74,13 @@ public class RegisterView extends BasicView {
             UserService userService = new UserService();
             User user = createUser();
             if (doctorCheckBox.isSelected()) {
-                long id = userService.getAllDoctors().stream().count() + 1;
-                Doctor doctor = new Doctor(id, user.getId(), credentialTextfield.getText(), 0, 8);
+                Doctor doctor = new Doctor(user.getId(), user.getId(), credentialTextfield.getText(), 0, 8);
                 doctor.setUser(user);
+                user.setDoctor(doctor);
+                user.makeDoctor();
                 DoctorService doctorService = new DoctorService();
                 doctorService.create(doctor);
+                userService.create(user);
                 System.out.println("Doctor registrado exitosamente.");
             } else {
                 userService.create(user);
@@ -94,7 +96,7 @@ public class RegisterView extends BasicView {
 
     private User createUser() {
         UserService userService = new UserService();
-        int id = (int) userService.getAllUsers().stream().count() + 1;
+        long id = userService.getAll().stream().count() + 1;
         User user = new User(id, firstNameField.getText(), lastNameField.getText(), addressField.getText(), dniField.getText(), usernameField.getText(), passwordField.getText());
 
         return user;

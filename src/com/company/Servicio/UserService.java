@@ -39,4 +39,11 @@ public class UserService extends Service<User> {
 
         return users.collect(Collectors.toList());
     }
+
+    public List<User> getAll() {
+        List<User> data = entityDAO.findAll();
+
+        Stream<User> users = data.stream();
+        return users.collect(Collectors.toList());
+    }
 }
