@@ -21,7 +21,6 @@ public class ViewManager {
     public void init() {
         this.mainPanel = new JFrame();
         this.createAppointmentFrame = new JFrame();
-        //this.createAppointmentFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         this.setTitle();
 
@@ -77,6 +76,10 @@ public class ViewManager {
         this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
+    }
+
+    public void showConfirmationDialog(long selectedAppointmentId) {
+
     }
 
     public void hideForm(){

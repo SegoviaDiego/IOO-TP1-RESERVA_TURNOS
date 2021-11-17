@@ -46,13 +46,6 @@ public class MainMenuView extends BasicView {
                 viewManager.goToCreateAppointmentView();
             }
         });
-
-        this.cancelarTurnoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Dialog
-            }
-        });
     }
 
     @Override
@@ -63,6 +56,18 @@ public class MainMenuView extends BasicView {
     public JComponent getView(User user) {
         JComponent view = this.$$$getRootComponent$$$();
         createTable(user);
+
+        this.cancelarTurnoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "¿Desea continuar?", "Esta a punto de cancelar el turno seleccionado", JOptionPane.YES_NO_OPTION);
+
+                if (response == 0) {
+                    AppointmentService service = new AppointmentService();
+                    service.deleteById(selectedAppointmentId);
+                }
+            }
+        });
         return view;
     }
 
