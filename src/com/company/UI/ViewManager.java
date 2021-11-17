@@ -13,13 +13,10 @@ public class ViewManager {
     private JFrame mainPanel;
     private LoginView loginView;
 
-    private MainMenu mainMenu;
-
     private CreateAppointment createaAppointmentView;
 
     private User user;
     private MainMenuView mainMenu;
-    private SelectDoctor selectDoctorView;
 
     private JFrame createAppointmentFrame;
     private CreateAppointment createAppointment;
@@ -55,9 +52,9 @@ public class ViewManager {
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToMainMenuView(User user) {
+    public void goToMainMenuView() {
         this.loggedUser= user;
-        this.mainMenu = new MainMenu(this);
+        this.mainMenu = new MainMenuView(this);
         this.mainMenu.init();
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.mainMenu.getView(this.loggedUser));

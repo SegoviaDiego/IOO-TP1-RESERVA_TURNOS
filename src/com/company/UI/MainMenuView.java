@@ -65,6 +65,7 @@ public class MainMenuView extends BasicView {
                 if (response == 0) {
                     AppointmentService service = new AppointmentService();
                     service.deleteById(selectedAppointmentId);
+                    createTable(user);
                 }
             }
         });
@@ -107,7 +108,7 @@ public class MainMenuView extends BasicView {
             row = new Object[]{
                     String.valueOf(a.getId()),
                     user.getLastName() + ", " + user.getFirstName(),
-                    a.getScheduledFor().toString(),
+                    new Date(a.getYear(), a.getMonth(), a.getDay(), a.getStartsAt(), 0).toString(),
                     doctor.getLastName() + ", " + doctor.getLastName()
             };
             data[i] = row;

@@ -27,7 +27,7 @@ public class AppointmentDAO implements FileDAO<Appointment> {
     public List<Appointment> findByUserId(long userId) {
         List<Appointment> data = this.findAll();
 
-        return data.stream().filter(entity -> entity.getUser().getId() == userId).collect(Collectors.toList());
+        return data.stream().filter(entity -> entity.getUserId() == userId).collect(Collectors.toList());
     }
 
 
