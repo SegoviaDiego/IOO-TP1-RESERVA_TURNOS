@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainMenuView extends BasicView {
     private JPanel panel1;
@@ -96,7 +97,12 @@ public class MainMenuView extends BasicView {
         AppointmentService appointmentService = new AppointmentService();
         UserService userService = new UserService();
         User doctor;
-        List<Appointment> appointments = appointmentService.findByUserId(user.getId());
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        List<Appointment> appointments =
+                appointmentService.findByUserId(user.getId()).stream()
+                        .filter(a -> today.before(new Date(a.getYear() - 1900, a.getMonth() - 1, a.getDay(), a.getStartsAt(), 0)))
+                        .collect(Collectors.toList());
 
         Object data[][] = new Object[appointments.size()][4];
         //Object data[][] = new Object[3][4];
@@ -104,11 +110,11 @@ public class MainMenuView extends BasicView {
         int i = 0;
 
         Date date;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm");
 
         for (Appointment a : appointments) {
             doctor = userService.findById(a.getDoctorId());
-            date = new Date(a.getYear() - 1900, a.getMonth() + 1, a.getDay(), a.getStartsAt(), 0);
+            date = new Date(a.getYear() - 1900, a.getMonth() - 1, a.getDay(), a.getStartsAt(), 0);
 
             row = new Object[]{
                     String.valueOf(a.getId()),
@@ -118,6 +124,7 @@ public class MainMenuView extends BasicView {
             };
             data[i] = row;
             i++;
+
         }
 
         /*
