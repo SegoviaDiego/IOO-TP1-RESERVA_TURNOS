@@ -1,18 +1,24 @@
 package com.company.Negocio;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
     private long id;
+    private long userId;
     private String credential; // Matricula
+    private int startsAt;
+    private int endsAt;
 
     // Related entities
 
     private User user;
-    private Shift shift;
 
-    public Doctor(int id, String firstName, String lastName, String credential) {
-
+    public Doctor(long id, long userId, String credential, int startsAt, int endsAt) {
         this.id = id;
+        this.userId = userId;
         this.credential = credential;
+        this.startsAt = startsAt;
+        this.endsAt = endsAt;
     }
 
     public long getId() {
@@ -39,11 +45,27 @@ public class Doctor {
         this.user = user;
     }
 
-    public Shift getShift() {
-        return shift;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setShift(Shift shift) {
-        this.shift = shift;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public int getStartsAt() {
+        return startsAt;
+    }
+
+    public void setStartsAt(int startsAt) {
+        this.startsAt = startsAt;
+    }
+
+    public int getEndsAt() {
+        return endsAt;
+    }
+
+    public void setEndsAt(int endsAt) {
+        this.endsAt = endsAt;
     }
 }

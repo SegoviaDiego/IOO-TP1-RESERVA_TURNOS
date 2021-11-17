@@ -1,5 +1,7 @@
 package com.company.UI;
 
+import com.company.Negocio.User;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
@@ -23,7 +25,7 @@ public class MainMenu extends BasicView {
         this.registrarTurnoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                viewManager.goToCreateAppointmentView();
             }
         });
     }

@@ -1,6 +1,6 @@
 package com.company.UI;
 
-import com.company.UI.Appointment.Schedule.SelectDoctor;
+import com.company.Negocio.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,9 @@ public class ViewManager {
 
     private MainMenu mainMenu;
 
-    private SelectDoctor selectDoctorView;
+    private CreateAppointment createaAppointmentView;
+
+    private User user;
 
     public void init() {
         this.mainPanel = new JFrame();
@@ -26,20 +28,18 @@ public class ViewManager {
         this.fitToScreen(defaultScreenWidth, defaultScreenHeight);
 
         this.centerToScreen(defaultScreenWidth, defaultScreenHeight);
+    }
 
-        this.loginView = new LoginView(this);
-        this.loginView.init();
-
-        this.mainMenu = new MainMenu(this);
-        this.mainMenu.init();
-
-        this.selectDoctorView = new SelectDoctor(this);
-        this.selectDoctorView.init();
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // Navigation methods
 
     public void goToLoginView() {
+        this.loginView = new LoginView(this);
+        this.loginView.init();
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.loginView.getView());
         this.mainPanel.getContentPane().validate();
@@ -47,15 +47,23 @@ public class ViewManager {
     }
 
     public void goToMainMenuView() {
+        this.mainMenu = new MainMenu(this);
+        this.mainMenu.init();
+
         this.mainPanel.getContentPane().removeAll();
         this.mainPanel.getContentPane().add(this.mainMenu.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
 
-    public void goToSelectDoctorView() {
+    public void goToCreateAppointmentView() {
+        this.createaAppointmentView = new CreateAppointment(this);
+        this.createaAppointmentView.init();
+
+        this.createaAppointmentView.setUser(user);
+
         this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.selectDoctorView.getView());
+        this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
         this.mainPanel.getContentPane().validate();
         this.mainPanel.getContentPane().repaint();
     }
