@@ -65,13 +65,13 @@ public class ViewManager {
     public void goToCreateAppointmentView() {
         this.createaAppointmentView = new CreateAppointment(this);
         this.createaAppointmentView.init();
-
         this.createaAppointmentView.setUser(user);
-
-        this.mainPanel.getContentPane().removeAll();
-        this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
-        this.mainPanel.getContentPane().validate();
-        this.mainPanel.getContentPane().repaint();
+        this.createAppointmentFrame.getContentPane().add(this.createaAppointmentView.getView());
+        this.createAppointmentFrame.setVisible(true);
+        //this.mainPanel.getContentPane().removeAll();
+        //this.mainPanel.getContentPane().add(this.createaAppointmentView.getView());
+        //this.mainPanel.getContentPane().validate();
+        //this.mainPanel.getContentPane().repaint();
     }
 
     public void showConfirmationDialog(long selectedAppointmentId) {
